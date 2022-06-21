@@ -1,0 +1,72 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <form class="navbar-form" style="margin-left:70%">
+        <span class="bmd-form-group">
+          <div class="input-group no-border">
+            <input #searchUser (input)="search(searchUser.value)" type="text" value="" class="form-control" placeholder="Search...">
+            <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+              <i class="material-icons">search</i>
+              <div class="ripple-container"></div>
+            </button>
+          </div>
+        </span>
+      </form>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title ">Data Operator</h4>
+              <p class="card-category">Seluruh Data Operator di RS LA</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th>
+                      ID
+                    </th>
+                    <th>
+                      Email
+                    </th>
+                    <th>
+                      Akses
+                    </th>
+                    <th>
+                      Aksi
+                    </th>
+                  </thead>
+                  <tbody *ngIf="userList">
+                    <tr *ngFor="let user of userList; index as i">
+                      <td>
+                        {{ i + 1}}
+                      </td>
+                      <td>
+                        {{ user.email }}
+                      </td>
+                      <td>
+                        {{ user.access}}
+                      </td>
+                      <td>
+                        <span 
+                        class="badge badge-pill badge-success p-2 mr-2" 
+                        (click)="openDialog(user)">
+                          Edit
+                        </span>
+                        <span 
+                        class="badge badge-pill badge-danger p-2" 
+                        (click)="openDialogDelete(user)">
+                          Hapus
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h4 *ngIf="!isUser" style="text-align: center">Belum ada operator yang terdaftar</h4>
+                <img *ngIf="isLoading" class="isLoading" src="/assets/img/loading_status.gif" alt="loading...">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

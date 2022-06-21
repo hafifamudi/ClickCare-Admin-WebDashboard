@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "clickcare-app": {
+      "hosting": {
+        "material-dashboard-angular": [
+          "clickcare-app"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "clickcare-app"
+  }
+}

@@ -1,0 +1,181 @@
+<div class="main-content">
+  <div class="container-fluid">
+<div class="row">
+  <div class="col-md-6">
+      <div class="card">
+          <div class="card-header card-header-danger">
+              <h4 class="card-title">Daftarkan Pasien</h4>
+              <p class="card-category">Isi Form dengan lengkap</p>
+          </div>
+          <div class="card-body">
+              <form [formGroup]="pasienRegisterForm" #formDirectivePasien="ngForm" (ngSubmit)="onRegisterPasien(formDirectivePasien)">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Nama" formControlName="nama" name="nama">
+                              <mat-error *ngIf="pasienRegisterError('nama', 'required')">Nama wajib di isi</mat-error>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="NIK" type="text" formControlName="nik" name="nik">
+                              <mat-error *ngIf="pasienRegisterError('nik', 'required')">NIK wajib di isi</mat-error>
+                              <mat-error *ngIf="pasienRegisterError('nik', 'pattern')">NIK hanya berisi angka</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Alamat" type="text"  formControlName="alamat" name="alamat">
+                              <mat-error *ngIf="pasienRegisterError('alamat', 'required')">Alamat wajib di isi</mat-error>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="No. Telepon" type="text"  formControlName="no_telepon" name="no_telepon">
+                              <mat-error *ngIf="pasienRegisterError('no_telepon', 'required')">No Telepon wajib di isi</mat-error>
+                              <mat-error *ngIf="pasienRegisterError('no_telepon', 'pattern')">No Telepon hanya berisi angka</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="No. BPJS" type="text" formControlName="no_bpjs" name="alamat">
+                              <mat-error *ngIf="pasienRegisterError('no_bpjs', 'required')">No BPJS wajib di isi</mat-error>
+                              <mat-error *ngIf="pasienRegisterError('no_bpjs', 'pattern')">No BPJS hanya berisi angka</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4">
+                          <mat-form-field>
+                              <mat-label>Pilih Poli</mat-label>
+                                  <mat-select formControlName="poli" name="poli" (selectionChange)="getLimitPoli($event)">
+                                      <mat-option *ngFor="let poli of poliList" [value]="poli.nama">
+                                      {{poli.nama}}
+                                      </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="pasienRegisterError('poli', 'required')">Poli wajib di pilih</mat-error>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                          <mat-form-field>
+                              <mat-label>Pilih Dokter</mat-label>
+                              <mat-select formControlName="dokter" name="dokter" (selectionChange)="getDoctorJadwal($event)">
+                                  <mat-option *ngFor="let doctor of doctorList" [value]="doctor.nama">
+                                  {{doctor.nama}}
+                                  </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="pasienRegisterError('dokter', 'required')">Dokter wajib di pilih</mat-error>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                          <mat-form-field>
+                              <mat-label>Pilih tanggal daftar</mat-label>
+                              <input matInput [matDatepicker]="picker" formControlName="waktu" name="waktu">
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                              <mat-error *ngIf="pasienRegisterError('waktu', 'required')">Tanggal wajib di pilih</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <label>Keluhan</label>
+                          <mat-form-field class="example-full-width">
+                              <textarea matInput
+                                  placeholder="Silahkan masukan detail keluhan penyakit yang anda rasakan." 
+                                  formControlName="keluhan"
+                                  name="keluhan"></textarea>
+                                  <mat-error *ngIf="pasienRegisterError('keluhan', 'required')">Keluhan wajib di isi</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <button mat-raised-button type="submit" 
+                          class="btn btn-danger pull-right"
+                          [disabled]="!pasienRegisterForm.valid">
+                      Daftarkan Pasien</button>
+                  <div class="clearfix"></div>
+              </form>
+          </div>
+      </div>
+
+  </div>
+  <div class="col-md-6">
+      <div class="card">
+          <div class="card-header card-header-danger">
+              <h4 class="card-title">Daftarkan Dokter</h4>
+              <p class="card-category">Isi Form dengan lengkap</p>
+          </div>
+          <div class="card-body">
+              <form [formGroup]="doctorRegisterForm" #formDirectiveDoctor="ngForm" (ngSubmit)="onRegisterDoctor(formDirectiveDoctor)">
+                  <div class="row">
+                      <div class="col-md-4">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Nama" formControlName="nama" name="nama">
+                              <mat-error *ngIf="doctorRegisterError('nama', 'required')">Nama wajib di isi</mat-error>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="NIK" formControlName="nik" name="nik" type="email">
+                              <mat-error *ngIf="doctorRegisterError('nik', 'required')">NIK wajib di isi</mat-error>
+                              <mat-error *ngIf="doctorRegisterError('nik', 'pattern')">NIK hanya berisi angka</mat-error>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Umur" formControlName="umur" name="umur" type="text">
+                              <mat-error *ngIf="doctorRegisterError('umur', 'required')">Umur wajib di isi</mat-error>
+                              <mat-error *ngIf="doctorRegisterError('umur', 'pattern')">Umur hanya berisi angka</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Alamat" formControlName="alamat" name="alamat" type="text">
+                              <mat-error *ngIf="doctorRegisterError('alamat', 'required')">Alamat wajib di isi</mat-error>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="No. Telepon" formControlName="no_telepon" name="no_telepon" type="text">
+                              <mat-error *ngIf="doctorRegisterError('no_telepon', 'required')">No Telepon wajib di isi</mat-error>
+                              <mat-error *ngIf="doctorRegisterError('no_telepon', 'pattern')">No Telepon hanya berisi angka</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="No. BPJS" formControlName="no_bpjs" name="no_bpjs" type="text">
+                              <mat-error *ngIf="doctorRegisterError('no_bpjs', 'required')">No Bpjs wajib di isi</mat-error>
+                              <mat-error *ngIf="doctorRegisterError('no_bpjs', 'pattern')">No Bpjs hanya berisi angka</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Spesialis" formControlName="spesialis" name="spesialis" type="text">
+                              <mat-error *ngIf="doctorRegisterError('spesialis', 'required')">Spesialis wajib di isi</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <button 
+                  mat-raised-button type="submit" 
+                  class="btn btn-danger pull-right"
+                  [disabled]="!doctorRegisterForm.valid">
+                      Daftarkan Dokter</button>
+                  <div class="clearfix"></div>
+              </form>
+          </div>
+      </div>
+
+  </div>
+</div>
+</div>
+</div>

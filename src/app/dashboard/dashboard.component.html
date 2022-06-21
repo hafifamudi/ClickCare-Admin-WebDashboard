@@ -1,0 +1,157 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">portrait</i>
+                        </div>
+                        <p class="card-category">Antrian Sekarang</p>
+                        <h3 class="card-title">{{ antrianSekarang }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-danger"></i>
+                            <a href="javascript:void(0)"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">play_for_work</i>
+                        </div>
+                        <p class="card-category">Berikutnya</p>
+                        <h3 class="card-title">{{ antrianSelanjutnya }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">loop</i>
+                        </div>
+                        <p class="card-category">Sisa</p>
+                        <h3 class="card-title">
+                            {{ sisaPasien }}
+                            <small>Pasien</small>
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">info_outline</i>
+                        </div>
+                        <p class="card-category">Total Pasien</p>
+                        <h3 class="card-title">
+                            {{ totalPasien }}
+                            <small>Pasien</small>
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Data Antrian</h4>
+                        <p class="card-category">Data Antrian {{ stateDate | date }} di RS LA</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Nama
+                                    </th>
+                                    <th>
+                                        No. Antrian
+                                    </th>
+                                    <th>
+                                        Poli
+                                    </th>
+                                    <th>
+                                        Dokter
+                                    </th>
+                                    <th>
+                                        Waktu
+                                    </th>
+                                    <th>
+                                        No. Telepon
+                                    </th>
+                                    <th>
+                                        Aksi
+                                    </th>
+                                </thead>
+                                <tbody *ngIf="pasienRegister">
+                                    <tr *ngFor="let pasien of pasienRegister; index as i">
+                                        <td>
+                                            {{ i + 1}}
+                                        </td>
+                                        <td>
+                                            {{ pasien.nama }}
+                                        </td>
+                                        <td>
+                                            {{ pasien.no_antrian}}
+                                        </td>
+                                        <td>
+                                            {{ pasien.poli }}
+                                        </td>
+                                        <td>
+                                            {{ pasien.dokter }}
+                                        </td>
+                                        <td>
+                                            {{ pasien.waktu }}
+                                        </td>
+                                        <td>
+                                            {{ pasien.no_telepon }}
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-pill p-2"
+                                                [class.badge-success]="pasien.status == 'Selesai'"
+                                                [class.badge-danger]="pasien.status == 'Konfirmasi'"
+                                                (click)="confirmPasienRegister(pasien, 'Selesai')">
+                                                {{ pasien.status }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h4 *ngIf="!isPasien" style="text-align: center">Belum ada pasien yang mendaftar di hari
+                                ini</h4>
+                            <h4 *ngIf="isDone" style="text-align: center">Seluruh pelayanan di hari ini telah selesai</h4>
+                            <img *ngIf="isLoading" class="isLoading" src="/assets/img/loading_status.gif"
+                                alt="loading...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

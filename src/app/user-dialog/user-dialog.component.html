@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Status Dokter</h1>
+<div mat-dialog-content>
+    <p>Pilih Keterangan Ketersedian Status Dokter</p>
+    <mat-radio-group 
+    [(ngModel)]="data.access" 
+    style="display: flex; justify-content: start;">
+        <mat-radio-button value="All" style="margin-right:20px">All</mat-radio-button>
+        <mat-radio-button value="Add" style="margin-right:20px">Add</mat-radio-button>
+        <mat-radio-button value="View" style="margin-right:20px">View</mat-radio-button>
+        <mat-radio-button value="Edit">Edit</mat-radio-button>
+    </mat-radio-group>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Batal</button>
+    <button mat-button [mat-dialog-close]="data.access" >Simpan</button>
+</div>

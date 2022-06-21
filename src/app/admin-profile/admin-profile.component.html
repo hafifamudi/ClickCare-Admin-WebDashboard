@@ -1,0 +1,24 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12" *ngIf="authService.userData as user">
+              <div class="card card-profile" >
+                  <div class="card-avatar">
+                      <a href="javascript:void(0)">
+                          <img class="img" src="{{ user.photoURL ? user.photoURL : '/assets/img/image_profile.png'}}" />
+                      </a>
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-category text-gray">Admin Rumah Sakit LA</h5>
+                      <h6 class="card-title">{{ user.email == 'admin@gmail.com' ? 'Admin' : 'Operator' }}</h6>
+                      <h3 class="card-title">{{ user.email }}</h3>
+                      <p class="card-description">
+                        Psr. Wahidin Sudirohusodo No. 185, Bengkulu 26791, KalBar
+                      </p>
+                      <a href="javascript:void(0)" class="btn btn-danger btn-round">Edit</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

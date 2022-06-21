@@ -1,0 +1,84 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <form class="navbar-form" style="margin-left:70%">
+      <span class="bmd-form-group">
+        <div class="input-group no-border">
+          <input #searchPasien (input)="search(searchPasien.value)" type="text" value="" class="form-control"
+            placeholder="Search...">
+          <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+          </button>
+        </div>
+      </span>
+    </form>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Data Antrian</h4>
+            <p class="card-category">Seluruh Data Antrian hari ini di RS LA</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>
+                    ID
+                  </th>
+                  <th>
+                    Nama
+                  </th>
+                  <th>
+                    NIK
+                  </th>
+                  <th>
+                    Alamat
+                  </th>
+                  <th>
+                    No. Telepon
+                  </th>
+                  <th>
+                    No. BPJS
+                  </th>
+                </thead>
+                <tbody *ngIf="pasienRegister">
+                  <tr *ngFor="let pasien of pasienRegister; index as i">
+                    <td>
+                      {{ i + 1}}
+                    </td>
+                    <td>
+                      {{ pasien.nama }}
+                    </td>
+                    <td>
+                      {{ pasien.nik}}
+                    </td>
+                    <td>
+                      {{ pasien.alamat }}
+                    </td>
+                    <td>
+                      {{ pasien.no_telepon }}
+                    </td>
+                    <td>
+                      {{ pasien.no_bpjs }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <h4 *ngIf="!isPasien" style="text-align: center">Data Pasien Kosong</h4>
+              <img *ngIf="isLoading" class="isLoading" src="/assets/img/loading_status.gif" alt="loading...">
+            </div>
+            <div class="pull-right">
+              <button class="btn btn-sm" [class.btn-danger]="!disable_prev"
+                [class.btn-light]="disable_prev || !(pagination_clicked_count>0)"
+                [disabled]="disable_prev || !(pagination_clicked_count>0)"
+                (click)="previousPageDataPasien()">Prev</button>
+              <button class="btn btn-sm" [class.btn-danger]="!disable_next" [class.btn-light]="disable_next"
+                [disabled]="disable_next" (click)="nextPageDataPasien()">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
